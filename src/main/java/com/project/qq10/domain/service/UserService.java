@@ -21,7 +21,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    // user 등록(회원 가입)
+    // (1) user 등록(회원 가입)
     public User createUser(User user) {
 
         // 이미 등록된 이메일인지 검증
@@ -43,5 +43,20 @@ public class UserService {
         if(user.isPresent())
             throw new BusinessException(ExceptionCode.USER_EXISTS);
     }
+
+    // (2) user 정보 조회
+    public User findUser(long userId) {
+        return findVerifiedUser(userId);
+    }
+
+    // 이미 존재하는 유저인지 검증
+    public User findVerifiedUser(long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        User findUser = optionalUser.orElseThrow(() ->
+                new BusinessException(ExceptionCode.USER_NOT_FOUND));
+
+        return findUser;
+    }
+
 
 }
