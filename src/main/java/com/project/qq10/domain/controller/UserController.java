@@ -41,4 +41,17 @@ public class UserController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.userToUserResponse(user)), HttpStatus.OK);
     }
+
+    // (3) user 정보 수정
+    @PatchMapping("/{user-id}")
+    public ResponseEntity patchUser(@PathVariable("user-id") @Positive long userId,
+                                    @Valid @RequestBody UserDto.Patch patch) {
+
+        patch.setUserId(userId);
+
+        User updateUser = userService.updateUser(mapper.userPatchToUser(patch));
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.userToUserResponse(updateUser)), HttpStatus.OK);
+    }
 }

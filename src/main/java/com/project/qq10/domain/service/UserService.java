@@ -58,5 +58,24 @@ public class UserService {
         return findUser;
     }
 
+    // (3) user 정보 수정
+    public User updateUser(User user) {
+
+        // 해당 회원의 아이디를 가져옴
+        User findUser = findVerifiedUser(user.getUserId());
+
+        // 회원정보 업데이트
+        Optional.ofNullable(user.getUserName())
+                .ifPresent(name -> findUser.setUserName(name));
+        Optional.ofNullable(user.getPassword())
+                .ifPresent(password -> findUser.setPassword(password));
+        Optional.of(user.getPhoneNumber())
+                .ifPresent(phoneNumber -> findUser.setPhoneNumber(phoneNumber));
+        Optional.ofNullable(user.getAddress())
+                .ifPresent(address -> findUser.setAddress(address));
+
+        // 회원정보 수정 저장
+        return userRepository.save(findUser);
+    }
 
 }
