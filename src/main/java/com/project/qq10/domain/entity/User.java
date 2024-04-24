@@ -2,6 +2,7 @@ package com.project.qq10.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 @Table(name = "USERS")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
 
     @Id

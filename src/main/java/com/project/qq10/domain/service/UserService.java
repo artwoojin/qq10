@@ -38,9 +38,9 @@ public class UserService {
 
     // 이미 등록된 이메일인지 검증
     private void verifyExistsEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
 
-        if(user.isPresent())
+        if(user != null)
             throw new BusinessException(ExceptionCode.USER_EXISTS);
     }
 
@@ -77,5 +77,7 @@ public class UserService {
         // 회원정보 수정 저장
         return userRepository.save(findUser);
     }
+
+
 
 }
