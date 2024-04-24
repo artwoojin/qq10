@@ -1,5 +1,6 @@
 package com.project.qq10.domain.dto;
 
+import com.project.qq10.domain.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -62,6 +63,8 @@ public class UserDto {
         private long phoneNumber;
         private String address;
 
+        public Response(User user) {
+        }
     }
 }
 
