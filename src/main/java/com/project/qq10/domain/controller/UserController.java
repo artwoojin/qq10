@@ -1,57 +1,40 @@
 package com.project.qq10.domain.controller;
 
-import com.project.qq10.domain.dto.SingleResponseDto;
-import com.project.qq10.domain.dto.UserDto;
-import com.project.qq10.domain.entity.User;
-import com.project.qq10.domain.mapper.UserMapper;
+import com.project.qq10.global.security.UserDetailsImpl;
+import com.project.qq10.domain.dto.LoginRequestDto;
+import com.project.qq10.domain.dto.SignupRequestDto;
+import com.project.qq10.domain.dto.UpdateProfileRequestDto;
 import com.project.qq10.domain.service.UserService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
-@RequestMapping("/users")
-@Validated
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-    private final UserMapper mapper;
 
-    // (1) user 등록(회원 가입)
-    @PostMapping("/sign-up")
-    public ResponseEntity postUser(@Valid @RequestBody UserDto.Post requestBody) {
+//    @GetMapping("/user/signup")
+//    public String signupPage() {
+//        return "signup";
+//    }
 
-        User user = mapper.userPostToUser(requestBody);
-        User createUser = userService.createUser(user);
+    @PostMapping("/user/signup")
+    public String signup(@RequestBody @Validated SignupRequestDto requestDto) {
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.userToUserResponse(createUser)), HttpStatus.CREATED);
+        return userService.signup(requestDto);
+    }
+    @PostMapping("/user/login")
+    public String login(@RequestBody LoginRequestDto loginRequestDto) {
+        return "login success";
     }
 
-    // (2) user 정보 조회
-    @GetMapping("/{user-id}")
-    public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId) {
-        User user = userService.findUser(userId);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.userToUserResponse(user)), HttpStatus.OK);
-    }
-
-    // (3) user 정보 수정
-    @PatchMapping("/{user-id}")
-    public ResponseEntity patchUser(@PathVariable("user-id") @Positive long userId,
-                                    @Valid @RequestBody UserDto.Patch patch) {
-
-        patch.setUserId(userId);
-
-        User updateUser = userService.updateUser(mapper.userPatchToUser(patch));
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.userToUserResponse(updateUser)), HttpStatus.OK);
+    @PutMapping("/user/profile")
+    public String updateProfile(@RequestBody @Validated UpdateProfileRequestDto updateProfileRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.updateProfile(updateProfileRequestDto, userDetails.getUser());
     }
 }
