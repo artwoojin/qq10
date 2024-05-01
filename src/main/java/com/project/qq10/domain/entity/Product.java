@@ -1,5 +1,7 @@
 package com.project.qq10.domain.entity;
 
+import com.project.qq10.domain.exception.BusinessException;
+import com.project.qq10.domain.exception.ErrorMessage;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,4 +31,16 @@ public class Product {
 
     @Column(nullable = false)
     private int quantity;
+
+    public void decreaseQuantity(int quantity) {
+        this.quantity -= quantity;
+
+        if (this.quantity < 0) {
+            throw new BusinessException(ErrorMessage.OUT_OF_STOCK);
+        }
+    }
+
+    public void increaseQuantity(int quantity) {
+        this.quantity += quantity;
+    }
 }

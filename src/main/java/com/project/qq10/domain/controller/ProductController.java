@@ -19,7 +19,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Operation(summary = "상품 목록 조회")
+    @Operation(summary = "상품 리스트 조회")
     @GetMapping("/product")
     public ApiResponse<List<ProductResponseDto>> getProductList(ProductSearchDto search, @RequestParam int size, Long cursorId) {
         List<ProductResponseDto> productResponseDtoList = productService.getProductList(search, size, cursorId);

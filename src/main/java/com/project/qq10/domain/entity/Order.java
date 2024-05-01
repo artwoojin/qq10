@@ -1,33 +1,44 @@
 package com.project.qq10.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Entity(name = "orders")
+@Builder
+@AllArgsConstructor
 @Getter
-@Setter
-@Table(name = "orders")
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 
     @Id
-    @GeneratedValue
-    @Column(name = "orderId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private User user;
+    @Column(nullable = false)
+    private int totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderedProduct> orderedProducts = new ArrayList<>();
+    private Long userId;
 
-    private LocalDateTime orderDate;
+    @OneToMany
+    private List<OrderedProduct> orderedProductList;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    @CreatedDate
+    private LocalDate createdAt;
+
+    @LastModifiedDate
+    private LocalDate modifiedAt;
+
 }
