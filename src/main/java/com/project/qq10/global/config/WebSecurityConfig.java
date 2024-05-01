@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -79,6 +80,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/public").permitAll()
                         .requestMatchers("/docs/**").permitAll()
                         .requestMatchers("/user/**").permitAll() // '/user/'로 시작하는 요청 모두 접근 허가
+                        .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 //        http.formLogin((formLogin) ->
@@ -98,5 +100,10 @@ public class WebSecurityConfig {
 //        );
 
         return httpSecurity.build();
+    }
+
+    // Security 무시하기
+    public void configure(WebSecurity web)throws Exception{
+        web.ignoring().requestMatchers("/h2-console/**");
     }
 }
