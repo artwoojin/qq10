@@ -2,17 +2,14 @@ package com.project.qq10.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "USERS")
 @Getter
 @Setter
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class User {
 
     @Id
@@ -21,7 +18,7 @@ public class User {
     private long userId;
 
     @Column(nullable = false,length = 100)
-    private String userName;
+    private String username;
 
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
@@ -30,21 +27,28 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private long phoneNumber;
+    private String phoneNumber;
 
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Order> orders = new ArrayList<>();
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> roles = new ArrayList<>();
+    @Column(name = "role")
+    @Enumerated(value = EnumType.STRING)
+    private UserRoleEnum role;
 
-    public User(String email, String userName, Long phoneNumber, String address) {
+    public User(String username, String email, String password, String phoneNumber, String address, UserRoleEnum role) {
+        this.username = username;
         this.email = email;
-        this.userName = userName;
+        this.password = password;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.role = role;
+    }
+    public void updateProfile(String address, String phoneNumber) {
+        this.address = address;
+        this.phoneNumber = phoneNumber;
     }
 }
