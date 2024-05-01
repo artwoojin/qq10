@@ -7,8 +7,7 @@ public class BusinessException extends RuntimeException {
     @Getter
     private ExceptionCode exceptionCode;
 
-    public BusinessException(ExceptionCode exceptionCode) {
+    public BusinessException(ErrorMessage exceptionCode) {
         super(exceptionCode.getMessage());
-        this.exceptionCode = exceptionCode;
     }
 }

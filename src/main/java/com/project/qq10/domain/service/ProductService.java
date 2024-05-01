@@ -29,7 +29,7 @@ public class ProductService {
 
     public ProductResponseDto getProduct(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(
-                () -> new NotFoundException(ErrorMessage.NOT_FOUND_PRODUCT));
+                () -> new NotFoundException(ErrorMessage.PRODUCT_NOT_FOUND));
 
         return ProductResponseDto.of(product);
     }
