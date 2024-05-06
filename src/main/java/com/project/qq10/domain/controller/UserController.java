@@ -18,11 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-//    @GetMapping("/user/signup")
-//    public String signupPage() {
-//        return "signup";
-//    }
-
     @PostMapping("/user/signup")
     public String signup(@RequestBody @Validated SignupRequestDto requestDto) {
 

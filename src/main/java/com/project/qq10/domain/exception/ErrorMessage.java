@@ -14,8 +14,8 @@ public enum ErrorMessage {
     TOKEN_ERROR("유효하지 않은 토큰입니다."),
 
     PRODUCT_NOT_FOUND("해당 상품을 찾을 수 없습니다."),
-    NOT_FOUND_WISHLIST_PRODUCT("해당 장바구니 상품을 찾을 수 없습니다."),
-    NOT_FOUND_WISHLIST("장바구니를 찾을 수 없습니다."),
+//    WISHLIST_PRODUCT_NOT_FOUND("해당 장바구니 상품을 찾을 수 없습니다."),
+//    WISHLIST_NOT_FOUND("장바구니를 찾을 수 없습니다."),
 
     OUT_OF_STOCK("해당 상품은 품절되었습니다."),
     ORDER_NOT_FOUND("해당 주문 정보를 찾을 수 없습니다."),

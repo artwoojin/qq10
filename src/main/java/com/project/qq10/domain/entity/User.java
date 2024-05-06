@@ -39,6 +39,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
 
+    //private Long wishListId;
+
     public User(String username, String email, String password, String phoneNumber, String address, UserRoleEnum role) {
         this.username = username;
         this.email = email;
