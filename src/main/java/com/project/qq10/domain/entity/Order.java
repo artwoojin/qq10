@@ -41,4 +41,28 @@ public class Order {
     @LastModifiedDate
     private LocalDate modifiedAt;
 
+    public void updateStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public boolean isNotCancelableStatus() {
+        return this.status != OrderStatus.CREATED;
+    }
+
+    public void cancelOrder() {
+        this.status = OrderStatus.CANCELED;
+    }
+
+    public boolean isNotReturnableStatus() {
+        return this.status != OrderStatus.COMPLETED;
+    }
+
+    public boolean isNotReturnableDate() {
+        return LocalDate.now().isAfter(this.modifiedAt.plusDays(1));
+    }
+
+    public void returnOrder() {
+        this.status = OrderStatus.RETURNING;
+    }
+
 }

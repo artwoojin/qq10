@@ -36,4 +36,28 @@ public class OrderController {
         return ApiResponse.success(userOrderInfo);
     }
 
+//    @Operation(summary = "위시리스트 일괄 주문")
+//    @PostMapping("/order-wishlist")
+//    public ApiResponse<OrderResponseDto> orderWishlist(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        OrderResponseDto orderResponseDto = orderService.orderWishlist(userDetails.getUser());
+//
+//        return ApiResponse.success(orderResponseDto);
+//    }
+
+    @Operation(summary = "주문 취소")
+    @DeleteMapping("/order/{orderId}")
+    public ApiResponse<Boolean> cancelOrder(@PathVariable Long orderId) {
+        orderService.cancelOrder(orderId);
+
+        return ApiResponse.success();
+    }
+
+    @Operation(summary = "반품")
+    @PutMapping("/order/{orderId}")
+    public ApiResponse<Boolean> returnOrder(@PathVariable Long orderId) {
+        orderService.returnOrder(orderId);
+
+        return ApiResponse.success();
+    }
+
 }

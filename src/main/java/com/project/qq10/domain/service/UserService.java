@@ -1,5 +1,7 @@
 package com.project.qq10.domain.service;
 
+//import com.project.qq10.domain.entity.Wishlist;
+//import com.project.qq10.domain.repository.WishlistRepository;
 import com.project.qq10.global.EncryptUtil;
 import com.project.qq10.domain.dto.UpdateProfileRequestDto;
 import com.project.qq10.domain.entity.UserRoleEnum;
@@ -20,7 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EncryptUtil encryptUtil;
-
+    //private final WishlistRepository wishlistRepository;
 
     public String signup(SignupRequestDto signupRequestDto) {
         Optional<User> findUserEmail = userRepository.findByEmail(signupRequestDto.getEmail());
