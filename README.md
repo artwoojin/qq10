@@ -12,9 +12,12 @@ API Gateway 활용으로 마이크로서비스 아키텍처의 각 서비스 API
 * Redis
 * Docker / Docker Compose
 ## 🏗️ 아키텍처
-(전체 프로젝트 아키텍처 도표 추가 예정)
+<p align="center">
+  <img src="https://github.com/artwoojin/qq10/assets/115981614/ea23c091-aa9d-429d-bbd1-b59927ca1fab">
+</p>
+
 * ERD
-* API 명세서
+* API 명세서   
 ## 📈 성능 최적화
 (추가 예정)   
 * 사례1   
