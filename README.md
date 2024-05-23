@@ -13,7 +13,7 @@ API Gateway 활용으로 마이크로서비스 아키텍처의 각 서비스 API
 * Docker / Docker Compose
 ## 🏗️ 아키텍처
 <p align="center">
-  <img src="https://github.com/artwoojin/qq10/assets/115981614/72307bf0-9251-4af6-91bf-3e065eb1dbde">
+  <img src="https://github.com/artwoojin/qq10/assets/115981614/108b83cd-bdf3-4b67-8309-f2cb70ccc8c0">
 </p>
 
 * ERD
