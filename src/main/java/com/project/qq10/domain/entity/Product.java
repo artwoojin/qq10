@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -32,10 +34,19 @@ public class Product {
     @Column(nullable = false)
     private int quantity;
 
+    @Column(nullable = false)
+    private String type;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "modified_at")
+    private LocalDateTime modifiedAt;
+
     public void decreaseQuantity(int quantity) {
         this.quantity -= quantity;
 
-        if (this.quantity < 0) {
+        if (this.quantity <= 0) {
             throw new BusinessException(ErrorMessage.OUT_OF_STOCK);
         }
     }

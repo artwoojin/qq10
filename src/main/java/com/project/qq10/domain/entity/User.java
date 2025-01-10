@@ -49,8 +49,16 @@ public class User {
         this.address = address;
         this.role = role;
     }
-    public void updateProfile(String address, String phoneNumber) {
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
+    public void updateAddress(String address) {
         this.address = address;
+    }
+
+    public void updatePhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 }
