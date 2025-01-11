@@ -24,7 +24,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
     private final EncryptUtil encryptUtil;
     //private final WishlistRepository wishlistRepository;
 
@@ -34,7 +34,7 @@ public class UserService {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
         String userEmail = signupRequestDto.getEmail();
-        String encodePassword = passwordEncoder.encode(signupRequestDto.getPassword());
+        String encodePassword = bCryptPasswordEncoder.encode(signupRequestDto.getPassword());
         String encodeName = encryptUtil.encrypt(signupRequestDto.getUsername());
         String encodeAddress = encryptUtil.encrypt(signupRequestDto.getAddress());
         String encodePhoneNumber = encryptUtil.encrypt(signupRequestDto.getPhoneNumber());
@@ -87,17 +87,20 @@ public class UserService {
 
         verificationPassword(requestDto, user);
 
-        String encodedPassword = passwordEncoder.encode(requestDto.password());
+        String encodedPassword = bCryptPasswordEncoder.encode(requestDto.password());
         findUser.updatePassword(encodedPassword);
     }
 
+
+
+
     // 기존 비밀번호 검증
     private void verificationPassword(PasswordChangeRequestDto requestDto, User user) {
-        if (passwordEncoder.matches(requestDto.password(), user.getPassword())) {
+        if (bCryptPasswordEncoder.matches(requestDto.password(), user.getPassword())) {
             throw new BusinessException(ErrorMessage.WRONG_PASSWORD);
         }
 
-        if (passwordEncoder.matches(requestDto.newPassword(), user.getPassword())) {
+        if (bCryptPasswordEncoder.matches(requestDto.newPassword(), user.getPassword())) {
             throw new BusinessException(ErrorMessage.SAME_PASSWORD);
         }
     }

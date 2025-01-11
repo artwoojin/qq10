@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Table(name = "USERS")
@@ -60,5 +62,26 @@ public class User {
 
     public void updatePhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    /*
+    * 비밀번호를 암호화
+    * @param passwordEncoder 암호화할 인코더 클래스
+    * @return 변경된 User Entity
+    * */
+    public User hashPassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(this.password);
+        return this;
+    }
+
+    /*
+    * 비밀번호 확인
+    * @param basicPassword 암호화 이전 비밀번호
+    * @param passwordEncoder 암호화에 사용된 클래스
+    * */
+    public void checkPassword(String basicPassword, PasswordEncoder passwordEncoder) {
+        if (!passwordEncoder.matches(this.password, basicPassword)) {
+            throw new BadCredentialsException("Wrong password");
+        }
     }
 }
